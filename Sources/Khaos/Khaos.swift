@@ -12,7 +12,7 @@ import UIKit
 public class Khaos {
     public static let shared = Khaos()
     
-    private let ModuleBundle: Bundle = Bundle(for: Khaos.self)
+    private let ModuleBundle: Bundle = Bundle.module
     
     var viewControllers: [String] = []
     var requests: [KhaosRequestModel] = []
