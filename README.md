@@ -1,13 +1,43 @@
-# ``Khaos``
+# Installation
 
-<!--@START_MENU_TOKEN@-->Summary<!--@END_MENU_TOKEN@-->
+## Swift Package Manager
 
-## Overview
+The Swift Package Manager is a tool for automating the distribution of Swift code and is integrated into the swift compiler.
 
-<!--@START_MENU_TOKEN@-->Text<!--@END_MENU_TOKEN@-->
+Once you have your Swift package set up, adding Khaos as a dependency is as easy as adding it to the dependencies value of your Package.swift.
 
-## Topics
+```swift
+    dependencies: [
+        .package(url: "https://github.com/nextlua/khaos-ios.git")
+    ]
+```
 
-### <!--@START_MENU_TOKEN@-->Group<!--@END_MENU_TOKEN@-->
+# How To Use
 
-- <!--@START_MENU_TOKEN@-->``Symbol``<!--@END_MENU_TOKEN@-->
+```swift
+import Khaos
+
+NXKhaos.start(apikey: "your api key")
+```
+
+## Disable Shaking
+
+```swift
+NXKhaos.start(apikey: "your api key", isShakeActive: false)
+```
+
+## Disable ScreenShot
+
+```swift
+NXKhaos.start(apikey: "your api key", isScreenShotActive: false)
+```
+
+## Show Khaos Manually
+
+```swift
+NXKhaos.showKhaos()
+```
+
+## Notice
+
+> In order to use Network Interceptor your base request must be handled with `Alamofire` .
