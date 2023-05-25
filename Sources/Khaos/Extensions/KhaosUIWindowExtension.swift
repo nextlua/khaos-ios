@@ -18,7 +18,7 @@ extension UIWindow {
         }
         set(newValue) {
             let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-            UIWindow._isShaked[tmpAddress] = NXKhaos.shared.isShakeActive ? newValue : false
+            UIWindow._isShaked[tmpAddress] = Khaos.shared.isShakeActive ? newValue : false
         }
     }
     
@@ -32,7 +32,7 @@ extension UIWindow {
         self.isShaked = true
         
         if motion == .motionShake {
-            NXKhaos.showKhaos()
+            Khaos.showKhaos()
         }
     }
     

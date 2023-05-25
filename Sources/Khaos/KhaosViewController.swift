@@ -28,8 +28,8 @@ class KhaosViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        lastVisitedPages = NXKhaos.shared.viewControllers.suffix(4).dropLast()
-        lastRequests = NXKhaos.shared.requests.suffix(3)
+        lastVisitedPages = Khaos.shared.viewControllers.suffix(4).dropLast()
+        lastRequests = Khaos.shared.requests.suffix(3)
     }
     
     override func viewDidAppear(_ animated: Bool) {

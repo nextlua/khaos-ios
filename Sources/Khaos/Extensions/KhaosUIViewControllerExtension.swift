@@ -10,7 +10,7 @@ import UIKit
 extension UIViewController {
     @objc func _track_viewWillAppear(_ animated: Bool) {
         print("\n\n\n\n\nTracked: \(self.description)\n\n\n\n\n")
-        NXKhaos.shared.viewControllers.append(self.description)
+        Khaos.shared.viewControllers.append(self.description)
         _track_viewWillAppear(animated)
     }
     

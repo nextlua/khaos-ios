@@ -113,7 +113,7 @@ extension KhaosAPI {
             case .uploadImage:
                 header.add(HTTPHeader(name: "Content-Type", value: "multipart/form-data"))
             case .addBug:
-                header.add(HTTPHeader(name: "apikey", value: "\(NXKhaos.shared.apiKey ?? "")"))
+                header.add(HTTPHeader(name: "apikey", value: "\(Khaos.shared.apiKey ?? "")"))
             default:
                 header.add(HTTPHeader(name: "Content-Type", value: "application/json"))
             }

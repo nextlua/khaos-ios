@@ -9,10 +9,10 @@ import Foundation
 import Alamofire
 import UIKit
 
-public class NXKhaos {
-    public static let shared = NXKhaos()
+public class Khaos {
+    public static let shared = Khaos()
     
-    private let ModuleBundle: Bundle = Bundle(for: NXKhaos.self)
+    private let ModuleBundle: Bundle = Bundle(for: Khaos.self)
     
     var viewControllers: [String] = []
     var requests: [KhaosRequestModel] = []
@@ -23,17 +23,17 @@ public class NXKhaos {
     
     public static func start(apikey: String, isShakeActive: Bool = true, isScreenShotActive: Bool = true) {
         UIViewController.swizzle()
-        NXKhaos.shared.startLogging()
-        NXKhaos.shared.apiKey = apikey
-        NXKhaos.shared.isShakeActive = isShakeActive
-        NXKhaos.shared.isScreenShotActive = isScreenShotActive
-        NXKhaos.shared.checkKeys(apiKey: NXKhaos.shared.apiKey ?? "")
+        Khaos.shared.startLogging()
+        Khaos.shared.apiKey = apikey
+        Khaos.shared.isShakeActive = isShakeActive
+        Khaos.shared.isScreenShotActive = isScreenShotActive
+        Khaos.shared.checkKeys(apiKey: Khaos.shared.apiKey ?? "")
     }
     
     public static func showKhaos() {
         var screenshot: UIImage?
-        if NXKhaos.shared.isScreenShotActive { screenshot = NXKhaos.shared.takeScreenshot() }
-        NXKhaos.shared.presentKhaos(screenshot)
+        if Khaos.shared.isScreenShotActive { screenshot = Khaos.shared.takeScreenshot() }
+        Khaos.shared.presentKhaos(screenshot)
     }
     
     private func startLogging() {
@@ -112,7 +112,7 @@ public class NXKhaos {
     }
     
     private func presentKhaos(_ screenshot: UIImage? = nil) {
-        if let vc = UIStoryboard(name: "Khaos", bundle: NXKhaos.shared.ModuleBundle).instantiateInitialViewController() as? KhaosViewController {
+        if let vc = UIStoryboard(name: "Khaos", bundle: Khaos.shared.ModuleBundle).instantiateInitialViewController() as? KhaosViewController {
             vc.currentPage = UIApplication.topViewController()?.description
             vc.screenshot = screenshot
 
