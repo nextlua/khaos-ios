@@ -30,11 +30,23 @@ class KhaosViewController: UIViewController {
         super.viewDidLoad()
         lastVisitedPages = Khaos.shared.viewControllers.suffix(4).dropLast()
         lastRequests = Khaos.shared.requests.suffix(3)
+        setLayout()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+    }
+    
+    func setLayout() {
+        screenShowImageView.image = screenshot
+        bugTitleTextField.layer.borderColor = UIColor(named: "border_color")?.cgColor
+        bugTitleTextField.layer.borderWidth = 1
+        bugTitleTextField.setCornerRadius(8)
+        bugDescriptionTextField.layer.borderColor = UIColor(named: "border_color")?.cgColor
+        bugDescriptionTextField.layer.borderWidth = 1
+        bugDescriptionTextField.setCornerRadius(8)
+        bugDescriptionTextView.layer.borderColor = UIColor(named: "border_color")?.cgColor
+        bugDescriptionTextView.layer.borderWidth = 1
         bugDescriptionTextView.setCornerRadius(8)
     }
     
@@ -214,5 +226,25 @@ class KhaosViewController: UIViewController {
     
     @IBAction func submitBug(_ sender: Any) {
         uploadScreenshot()
+    }
+    
+    @IBAction func dismissAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension KhaosViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor(named: "border_color") {
+            textView.text = nil
+            textView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Briefly explain bug"
+            textView.textColor = UIColor(named: "border_color")
+        }
     }
 }

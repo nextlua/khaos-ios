@@ -17,25 +17,43 @@ Once you have your Swift package set up, adding Khaos as a dependency is as easy
 ```swift
 import Khaos
 
-NXKhaos.start(apikey: "your api key")
+Khaos.start(apikey: "your api key")
 ```
 
 ## Disable Shaking
 
 ```swift
-NXKhaos.start(apikey: "your api key", isShakeActive: false)
+Khaos.shared.isShakeActive = false
 ```
 
 ## Disable ScreenShot
 
 ```swift
-NXKhaos.start(apikey: "your api key", isScreenShotActive: false)
+Khaos.shared.isScreenShotActive = false
+```
+
+## Disable Logger
+
+```swift
+Khaos.shared.isLoggerActive = false
+```
+
+## Disable Vibration
+
+```swift
+Khaos.shared.isVibrationActive = false
+```
+
+## Set Vibration Style
+
+```swift
+Khaos.shared.vibration = .soft
 ```
 
 ## Show Khaos Manually
 
 ```swift
-NXKhaos.showKhaos()
+Khaos.showKhaos()
 ```
 
 ## Notice

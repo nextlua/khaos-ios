@@ -16,17 +16,19 @@ public class Khaos {
     
     var viewControllers: [String] = []
     var requests: [KhaosRequestModel] = []
-    var isShakeActive: Bool = true
-    var isScreenShotActive: Bool = true
+    
+    public var isShakeActive: Bool = true
+    public var isScreenShotActive: Bool = true
+    public var isLoggerActive: Bool = true
+    public var isVibrationActive: Bool = true
+    public var vibration: UIImpactFeedbackGenerator.FeedbackStyle = .soft
     
     public var apiKey: String?
     
-    public static func start(apikey: String, isShakeActive: Bool = true, isScreenShotActive: Bool = true) {
+    public static func start(apikey: String) {
         UIViewController.swizzle()
         Khaos.shared.startLogging()
         Khaos.shared.apiKey = apikey
-        Khaos.shared.isShakeActive = isShakeActive
-        Khaos.shared.isScreenShotActive = isScreenShotActive
         Khaos.shared.checkKeys(apiKey: Khaos.shared.apiKey ?? "")
     }
     
@@ -117,6 +119,9 @@ public class Khaos {
             vc.screenshot = screenshot
 
             if let topController = UIApplication.topViewController() {
+                if isVibrationActive {
+                    UIImpactFeedbackGenerator(style: Khaos.shared.vibration).impactOccurred()
+                }
                 topController.present(vc, animated: true)
             }
         }
