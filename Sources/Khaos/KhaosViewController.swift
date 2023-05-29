@@ -45,6 +45,8 @@ class KhaosViewController: UIViewController {
         bugDescriptionTextField.layer.borderColor = UIColor(named: "border_color")?.cgColor
         bugDescriptionTextField.layer.borderWidth = 1
         bugDescriptionTextField.setCornerRadius(8)
+        bugDescriptionTextView.delegate = self
+        bugDescriptionTextView.textColor = .lightGray
         bugDescriptionTextView.layer.borderColor = UIColor(named: "border_color")?.cgColor
         bugDescriptionTextView.layer.borderWidth = 1
         bugDescriptionTextView.setCornerRadius(8)
@@ -166,18 +168,17 @@ class KhaosViewController: UIViewController {
         let data: MultipartFormData = MultipartFormData()
         data.append(imgData, withName: "File", fileName: "screenshot.jpg", mimeType: "image/jpg")
         
-        KhaosAPI.shared.uploadRequest(of: .uploadImage, responseType: KhaosUploadImageResponse.self, data: data) { (response: KhaosUploadImageResponse?, error) in
+        KhaosAPI.shared.uploadRequest(of: .uploadImage, responseType: KhaosBaseResponse.self, data: data) { (response: KhaosBaseResponse?, error) in
             if let response = response {
-                switch response.status {
-                case .success:
+                if response.isSucceed ?? false {
                     self.showSuccessAlert(title: "SUCCESS",
                                           message: "Image uploaded",
                                           primaryButtonTitle: "Send Bug",
                                           secondaryButtonTitle: "Cancel",
                                           primaryButtonAction: {
-                        self.request(urlString: response.data ?? "")
+                        self.request(urlString: response.message ?? "")
                     })
-                case .failed:
+                } else {
                     self.showFailedAlert(title: "FAILED UPLOAD IMAGE",
                                          message: response.message ?? "")
                 }
@@ -235,7 +236,7 @@ class KhaosViewController: UIViewController {
 
 extension KhaosViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor(named: "border_color") {
+        if textView.textColor == .lightGray {
             textView.text = nil
             textView.textColor = .black
         }
@@ -244,7 +245,7 @@ extension KhaosViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = "Briefly explain bug"
-            textView.textColor = UIColor(named: "border_color")
+            textView.textColor = .lightGray
         }
     }
 }
