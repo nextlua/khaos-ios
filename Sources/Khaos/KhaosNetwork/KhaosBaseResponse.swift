@@ -19,7 +19,7 @@ struct KhaosBaseResponse: Codable {
     
     enum CodingKeys: String, CodingKey {
         case isSucceed = "IsSucceed"
-        case message
+        case message = "Message"
     }
     
     init(from decoder: Decoder) throws {
