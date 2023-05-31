@@ -79,17 +79,16 @@ class KhaosViewController: UIViewController {
         
         KhaosAPI.shared.requestService(of: .addBug(parameters: khaosModel), responseType: KhaosBaseResponse.self) { (response: KhaosBaseResponse?, error) in
             if let response = response {
-                switch response.status {
-                case .success:
+                if response.IsSucceed ?? false {
                     self.showSuccessAlert(title: "SUCCESS",
                                           message: "Bug uploaded",
                                           primaryButtonTitle: "Close", secondaryButtonTitle: "",
                                           primaryButtonAction: {
                         self.dismiss(animated: true)
                     })
-                case .failed:
+                } else {
                     self.showFailedAlert(title: "FAILED UPLOAD BUG",
-                                         message: response.message ?? "")
+                                         message: response.Message ?? "")
                 }
             } else {
                 self.showFailedAlert(title: "ERROR UPLOAD BUG",
@@ -170,17 +169,17 @@ class KhaosViewController: UIViewController {
         
         KhaosAPI.shared.uploadRequest(of: .uploadImage, responseType: KhaosBaseResponse.self, data: data) { (response: KhaosBaseResponse?, error) in
             if let response = response {
-                if response.isSucceed ?? false {
+                if response.IsSucceed ?? false {
                     self.showSuccessAlert(title: "SUCCESS",
                                           message: "Image uploaded",
                                           primaryButtonTitle: "Send Bug",
                                           secondaryButtonTitle: "Cancel",
                                           primaryButtonAction: {
-                        self.request(urlString: response.message ?? "")
+                        self.request(urlString: response.Message ?? "")
                     })
                 } else {
                     self.showFailedAlert(title: "FAILED UPLOAD IMAGE",
-                                         message: response.message ?? "")
+                                         message: response.Message ?? "")
                 }
             } else {
                 self.showFailedAlert(title: "ERROR UPLOAD IMAGE",

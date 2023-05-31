@@ -101,11 +101,10 @@ public class Khaos {
     private func checkKeys(apiKey: String) {
         KhaosAPI.shared.requestService(of: .checkKeys(parameters: KhaosCheckRequestModel(apiKey: apiKey, bundleId: Bundle.main.bundleId)), responseType: KhaosBaseResponse.self) { (response: KhaosBaseResponse?, error) in
             if let response = response {
-                switch response.status {
-                case .success:
+                if response.IsSucceed ?? false {
                     print("SUCCESS START Khaos")
-                case .failed:
-                    print("FAILED START Khaos: \(response.message ?? "")")
+                } else {
+                    print("FAILED START Khaos: \(response.Message ?? "")")
                 }
             } else {
                 print("ERROR START Khaos: \(error ?? "")")
